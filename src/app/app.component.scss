@@ -91,7 +91,7 @@ h1 em, h2 em { color: var(--orange); font-weight: 500; }
 .journey__intro { position: relative; }
 .journey__intro h2 { font-size: clamp(54px, 6vw, 86px); }
 .journey__intro p { color: #cdb6a8; line-height: 1.65; max-width: 400px; }
-.journey__steps article { align-items: center; border-bottom: 1px solid rgba(255,255,255,.16); display: grid; gap: 20px; grid-template-columns: 62px 1fr 35px; padding: 29px 0; }
+.journey__steps article { align-items: center; border-bottom: 1px solid rgba(255,255,255,.16); display: grid; gap: 20px; grid-template-columns: 1fr 35px; padding: 29px 0; }
 .journey__steps b { border: 1px solid #a97a4c; border-radius: 50%; color: #e9b76f; display: grid; font-weight: 500; height: 46px; place-items: center; width: 46px; }
 .journey__steps h3 { font: 500 28px 'Fraunces', serif; margin: 0 0 7px; }
 .journey__steps p { color: #cdb8aa; margin: 0; }
@@ -182,7 +182,7 @@ footer small { border-top: 1px solid #dec69e; color: #8b6b54; grid-column: 1 / -
   .reviews { padding: 10px 18px 95px; }
   .journey { padding: 90px 24px; }
   .journey__intro h2, .story__copy h2 { font-size: 51px; }
-  .journey__steps article { grid-template-columns: 52px 1fr 24px; }
+  .journey__steps article { grid-template-columns: 1fr 24px; }
   .journey__steps h3 { font-size: 23px; }
   .journey__steps p { font-size: 13px; }
   .story { padding: 90px 24px; }

@@ -62,9 +62,8 @@
     </div>
 
     <div class="pillars-grid">
-      @for (highlight of highlights; track highlight.number) {
+      @for (highlight of highlights; track highlight.title) {
         <article class="pillar-card" appReveal>
-          <span class="pillar-card__num">{{ highlight.number }}</span>
           <h3>{{ highlight.title }}</h3>
           <p>{{ highlight.text }}</p>
         </article>
@@ -78,10 +77,10 @@
       <h2>Tem sempre um motivo<br>para viver um <em>sonho.</em></h2>
     </header>
     <div class="occasion-grid">
-      @for (occasion of occasions; track occasion.number) {
+      @for (occasion of occasions; track occasion.title) {
         <article class="occasion-card" [class.occasion-card--featured]="occasion.featured" appReveal>
           @if (occasion.featured) { <img src="assets/mascote-figurinha.png" alt="Mascote de pudim sorridente com uma colher"> }
-          <div><span>{{ occasion.number }}</span><h3>{{ occasion.title }}</h3><p>{{ occasion.text }}</p></div>
+          <div><h3>{{ occasion.title }}</h3><p>{{ occasion.text }}</p></div>
           <i>{{ occasion.featured ? '✦' : '♡' }}</i>
         </article>
       }
@@ -110,9 +109,9 @@
   <section class="journey">
     <div class="journey__intro" appReveal><span class="eyebrow">Do sonho até você</span><h2>Encomendar é<br><em>simples assim.</em></h2><p>Peça para entrega imediata no iFood ou combine sua encomenda pelo WhatsApp.</p></div>
     <div class="journey__steps">
-      <article appReveal><b>1</b><div><h3>Escolha o canal</h3><p>Peça direto pelo iFood ou chame a gente no WhatsApp.</p></div><span>→</span></article>
-      <article appReveal><b>2</b><div><h3>Escolha o tamanho</h3><p>Pudim individual (1 pessoa) ou tamanho família (até 8 fatias).</p></div><span>→</span></article>
-      <article appReveal><b>3</b><div><h3>Receba fresquinho</h3><p>Entrega rápida em Horizonte - CE ou retirada combinada.</p></div><span>♡</span></article>
+      <article appReveal><div><h3>Escolha o canal</h3><p>Peça direto pelo iFood ou chame a gente no WhatsApp.</p></div><span>→</span></article>
+      <article appReveal><div><h3>Escolha o tamanho</h3><p>Pudim individual (1 pessoa) ou tamanho família (até 8 fatias).</p></div><span>→</span></article>
+      <article appReveal><div><h3>Receba fresquinho</h3><p>Entrega rápida em Horizonte - CE ou retirada combinada.</p></div><span>♡</span></article>
     </div>
   </section>
 
