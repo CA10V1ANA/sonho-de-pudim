@@ -38,7 +38,6 @@ type Step = 'menu' | 'evento' | 'revenda';
             }
             @case ('evento') {
               <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
-              <span class="eyebrow">Eventos</span>
               <h2 id="modal-title">Vamos adoçar o seu <em>evento.</em></h2>
               <form (submit)="submit($event, 'evento')">
                 <label>Seu nome<input name="nome" [value]="evento().nome" (input)="setevento('nome', $event)" required autocomplete="name"></label>
@@ -58,7 +57,6 @@ type Step = 'menu' | 'evento' | 'revenda';
             }
             @case ('revenda') {
               <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
-              <span class="eyebrow">Revenda</span>
               <h2 id="modal-title">Leve o Sonho de Pudim ao seu <em>negócio.</em></h2>
               <form (submit)="submit($event, 'revenda')">
                 <label>Seu nome<input name="nome" [value]="revenda().nome" (input)="setrevenda('nome', $event)" required autocomplete="name"></label>
