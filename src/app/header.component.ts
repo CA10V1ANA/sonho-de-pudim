@@ -1,4 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+
+import { ContactService } from './contact.service';
 
 @Component({
   selector: 'app-header',
@@ -18,13 +20,14 @@ import { Component, signal } from '@angular/core';
           <a href="#pudins" (click)="close()">O nosso pudim</a>
           <a href="#experiencia" (click)="close()">Momentos</a>
           <a href="#historia" (click)="close()">Nossa essência</a>
-          <a class="button button--small" href="https://w.app/sonhodepudim" target="_blank" rel="noreferrer">Fazer encomenda</a>
+          <button class="button button--small" type="button" (click)="close(); contact.open()">Fazer encomenda</button>
         </div>
       </nav>
     </header>
   `
 })
 export class HeaderComponent {
+  readonly contact = inject(ContactService);
   readonly menuOpen = signal(false);
   toggle(): void { this.menuOpen.update(value => !value); }
   close(): void { this.menuOpen.set(false); }

@@ -1,16 +1,19 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { HeaderComponent } from './header.component';
 import { RevealDirective } from './reveal.directive';
+import { ContactModalComponent } from './contact-modal.component';
+import { ContactService } from './contact.service';
 import { Highlight, Occasion } from './models';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, RevealDirective],
+  imports: [HeaderComponent, ContactModalComponent, RevealDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  readonly contact = inject(ContactService);
   readonly year = new Date().getFullYear();
   readonly activeHighlight = signal(0);
   readonly pointerX = signal(0);

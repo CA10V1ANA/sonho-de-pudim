@@ -182,3 +182,10 @@ footer small { border-top: 1px solid #dec69e; color: #8b6b54; grid-column: 1 / -
   .footer__brand, footer > div { justify-content: center; }
   footer small { grid-column: auto; }
 }
+
+.social { align-items: center; }
+.social a { align-items: center; color: var(--caramel); display: inline-flex; transition: color .25s ease, transform .25s ease; }
+.social a:hover { color: var(--orange); transform: translateY(-2px); }
+.social svg { height: 26px; width: 26px; }
+.social .ifood { background: #ea1d2c; border-radius: 999px; color: #fff; font-size: 14px; font-weight: 800; letter-spacing: -.02em; padding: 4px 12px; }
+.social .ifood:hover { color: #fff; background: #c3131f; }
