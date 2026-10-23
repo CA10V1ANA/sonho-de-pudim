@@ -1,5 +1,4 @@
-import { Component, HostListener, effect, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, HostListener, computed, effect, inject, signal } from '@angular/core';
 import { ContactService } from './contact.service';
 import { IFOOD_URL, whatsappLink } from './contact.config';
 
@@ -8,7 +7,6 @@ type Step = 'menu' | 'evento' | 'revenda';
 @Component({
   selector: 'app-contact-modal',
   standalone: true,
-  imports: [FormsModule],
   styleUrl: './contact-modal.component.scss',
   template: `
     @if (contact.isOpen()) {
@@ -42,32 +40,32 @@ type Step = 'menu' | 'evento' | 'revenda';
               <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
               <span class="eyebrow">Eventos</span>
               <h2 id="modal-title">Vamos adoçar o seu <em>evento.</em></h2>
-              <form (ngSubmit)="sendEvento()" #f="ngForm">
-                <label>Seu nome<input name="nome" [(ngModel)]="evento.nome" required autocomplete="name"></label>
+              <form (submit)="submit($event, 'evento')">
+                <label>Seu nome<input name="nome" [value]="evento().nome" (input)="setevento('nome', $event)" required autocomplete="name"></label>
                 <label>Tipo de evento
-                  <select name="tipo" [(ngModel)]="evento.tipo" required>
+                  <select name="tipo" (change)="setevento('tipo', $event)" required>
                     <option value="" disabled>Selecione</option>
                     <option>Aniversário</option><option>Casamento</option><option>Outro</option>
                   </select>
                 </label>
                 <div class="row">
-                  <label>Data<input name="data" type="date" [(ngModel)]="evento.data"></label>
-                  <label>Nº de pessoas<input name="qtd" type="number" min="1" inputmode="numeric" [(ngModel)]="evento.qtd"></label>
+                  <label>Data<input name="data" type="date" [value]="evento().data" (input)="setevento('data', $event)"></label>
+                  <label>Nº de pessoas<input name="qtd" type="number" min="1" inputmode="numeric" [value]="evento().qtd" (input)="setevento('qtd', $event)"></label>
                 </div>
-                <label>Cidade / bairro<input name="local" [(ngModel)]="evento.local"></label>
-                <button class="submit" type="submit" [disabled]="f.invalid">Enviar pelo WhatsApp ↗</button>
+                <label>Cidade / bairro<input name="local" [value]="evento().local" (input)="setevento('local', $event)"></label>
+                <button class="submit" type="submit" [disabled]="!eventoValid()">Enviar pelo WhatsApp ↗</button>
               </form>
             }
             @case ('revenda') {
               <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
               <span class="eyebrow">Revenda</span>
               <h2 id="modal-title">Leve o Sonho de Pudim ao seu <em>negócio.</em></h2>
-              <form (ngSubmit)="sendRevenda()" #g="ngForm">
-                <label>Seu nome<input name="nome" [(ngModel)]="revenda.nome" required autocomplete="name"></label>
-                <label>Nome do negócio<input name="negocio" [(ngModel)]="revenda.negocio" required></label>
-                <label>Cidade / bairro<input name="local" [(ngModel)]="revenda.local"></label>
-                <label>Volume semanal estimado<input name="volume" [(ngModel)]="revenda.volume" placeholder="Ex.: 40 unidades"></label>
-                <button class="submit" type="submit" [disabled]="g.invalid">Enviar pelo WhatsApp ↗</button>
+              <form (submit)="submit($event, 'revenda')">
+                <label>Seu nome<input name="nome" [value]="revenda().nome" (input)="setrevenda('nome', $event)" required autocomplete="name"></label>
+                <label>Nome do negócio<input name="negocio" [value]="revenda().negocio" (input)="setrevenda('negocio', $event)" required></label>
+                <label>Cidade / bairro<input name="local" [value]="revenda().local" (input)="setrevenda('local', $event)"></label>
+                <label>Volume semanal estimado<input name="volume" [value]="revenda().volume" (input)="setrevenda('volume', $event)" placeholder="Ex.: 40 unidades"></label>
+                <button class="submit" type="submit" [disabled]="!revendaValid()">Enviar pelo WhatsApp ↗</button>
               </form>
             }
           }
@@ -81,15 +79,25 @@ export class ContactModalComponent {
   readonly step = signal<Step>('menu');
   readonly ifoodUrl = IFOOD_URL;
 
-  evento = { nome: '', tipo: '', data: '', qtd: null as number | null, local: '' };
-  revenda = { nome: '', negocio: '', local: '', volume: '' };
+  readonly evento = signal({ nome: '', tipo: '', data: '', qtd: '', local: '' });
+  readonly revenda = signal({ nome: '', negocio: '', local: '', volume: '' });
+  readonly eventoValid = computed(() => !!this.evento().nome.trim() && !!this.evento().tipo);
+  readonly revendaValid = computed(() => !!this.revenda().nome.trim() && !!this.revenda().negocio.trim());
+
+  setevento(key: string, e: Event): void { const v = (e.target as HTMLInputElement).value; this.evento.update(s => ({ ...s, [key]: v })); }
+  setrevenda(key: string, e: Event): void { const v = (e.target as HTMLInputElement).value; this.revenda.update(s => ({ ...s, [key]: v })); }
+  submit(e: Event, kind: 'evento' | 'revenda'): void { e.preventDefault(); if (kind === 'evento' ? this.eventoValid() : this.revendaValid()) { kind === 'evento' ? this.sendEvento() : this.sendRevenda(); } }
 
   constructor() {
     effect(() => {
       const open = this.contact.isOpen();
       document.body.style.overflow = open ? 'hidden' : '';
-      if (open) this.step.set('menu');
-    }, { allowSignalWrites: true });
+      if (open) {
+        this.step.set('menu');
+        this.evento.set({ nome: '', tipo: '', data: '', qtd: '', local: '' });
+        this.revenda.set({ nome: '', negocio: '', local: '', volume: '' });
+      }
+    });
   }
 
   whatsapp(): string { return whatsappLink('Olá! Gostaria de falar com vocês.'); }
@@ -98,7 +106,7 @@ export class ContactModalComponent {
   onEscape(): void { this.contact.close(); }
 
   sendEvento(): void {
-    const e = this.evento;
+    const e = this.evento();
     const parts = [`Olá! Me chamo ${e.nome} e gostaria de um orçamento para evento (${e.tipo}).`];
     if (e.data) parts.push(`Data: ${e.data.split('-').reverse().join('/')}.`);
     if (e.qtd) parts.push(`Pessoas: ${e.qtd}.`);
@@ -107,7 +115,7 @@ export class ContactModalComponent {
   }
 
   sendRevenda(): void {
-    const r = this.revenda;
+    const r = this.revenda();
     const parts = [`Olá! Me chamo ${r.nome} e tenho interesse em revender o Sonho de Pudim no(a) ${r.negocio}.`];
     if (r.local) parts.push(`Local: ${r.local}.`);
     if (r.volume) parts.push(`Volume estimado: ${r.volume}.`);
