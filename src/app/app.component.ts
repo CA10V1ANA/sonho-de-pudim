@@ -4,7 +4,7 @@ import { RevealDirective } from './reveal.directive';
 import { ContactModalComponent } from './contact-modal.component';
 import { ContactService } from './contact.service';
 import { IFOOD_URL } from './contact.config';
-import { Highlight, Occasion, ProductSize, Review } from './models';
+import { Highlight, Occasion, ProductSize, Review, StoreHour } from './models';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent {
   readonly contact = inject(ContactService);
   readonly ifoodUrl = IFOOD_URL;
   readonly year = new Date().getFullYear();
+  readonly todayIndex = new Date().getDay();
   readonly pointerX = signal(0);
   readonly pointerY = signal(0);
 
@@ -44,15 +45,15 @@ export class AppComponent {
   ];
 
   readonly highlights: readonly Highlight[] = [
-    { number: '01', title: 'Textura delicada', text: 'Cremoso, lisinho e preparado para derreter na primeira colherada.' },
-    { number: '02', title: 'Zero lactose disponível', text: 'Todo o sabor e cremosidade na versão tradicional ou zero lactose.' },
-    { number: '03', title: 'Calda generosa', text: 'Brilho dourado, sabor marcante e a quantidade certa de caramelo.' }
+    { title: 'Textura delicada', text: 'Cremoso, lisinho e preparado para derreter na primeira colherada.' },
+    { title: 'Zero lactose disponível', text: 'Todo o sabor e cremosidade na versão tradicional ou zero lactose.' },
+    { title: 'Calda generosa', text: 'Brilho dourado, sabor marcante e a quantidade certa de caramelo.' }
   ];
 
   readonly occasions: readonly Occasion[] = [
-    { number: '01', title: 'Para celebrar', text: 'Um doce especial para aniversários, encontros e datas que merecem carinho.' },
-    { number: '02', title: 'Para presentear', text: 'Um gesto bonito, delicado e cheio de afeto.', featured: true },
-    { number: '03', title: 'Para revender', text: 'Leve o Sonho de Pudim ao seu negócio e converse com a gente sobre parceria.' }
+    { title: 'Para celebrar', text: 'Um doce especial para aniversários, encontros e datas que merecem carinho.' },
+    { title: 'Para presentear', text: 'Um gesto bonito, delicado e cheio de afeto.', featured: true },
+    { title: 'Para revender', text: 'Leve o Sonho de Pudim ao seu negócio e converse com a gente sobre parceria.' }
   ];
 
   readonly reviews: readonly Review[] = [
@@ -71,6 +72,16 @@ export class AppComponent {
       author: 'Encomenda de Evento',
       tag: 'Pudim 500 ml'
     }
+  ];
+
+  readonly storeHours: readonly StoreHour[] = [
+    { day: 'Segunda-feira', hours: '08:00 às 17:00', dayIndex: 1 },
+    { day: 'Terça-feira', hours: '08:00 às 17:00', dayIndex: 2 },
+    { day: 'Quarta-feira', hours: '11:00 às 15:00', dayIndex: 3 },
+    { day: 'Quinta-feira', hours: '08:00 às 17:00', dayIndex: 4 },
+    { day: 'Sexta-feira', hours: '08:00 às 17:00', dayIndex: 5 },
+    { day: 'Sábado', hours: '08:00 às 17:00', dayIndex: 6 },
+    { day: 'Domingo', hours: '09:00 às 14:00', dayIndex: 0 }
   ];
 
   @HostListener('window:pointermove', ['$event'])

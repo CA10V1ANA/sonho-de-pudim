@@ -23,7 +23,7 @@ img { display: block; max-width: 100%; }
 .button--small { padding: 12px 20px; }
 .text-link { border-bottom: 1px solid rgba(159, 77, 23, .45); display: inline-flex; font-weight: 700; gap: 18px; padding-bottom: 6px; }
 .text-link span { transition: transform .25s ease; }
-.text-link:hover span { transform: translate(3px, -3px); }
+.text-link:hover span { transform: translateY(3px); }
 
 [appReveal] { opacity: 0; transform: translateY(32px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
 [appReveal].is-visible { opacity: 1; transform: translateY(0); }

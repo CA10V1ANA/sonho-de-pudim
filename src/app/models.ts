@@ -1,11 +1,9 @@
 export interface Highlight {
-  readonly number: string;
   readonly title: string;
   readonly text: string;
 }
 
 export interface Occasion {
-  readonly number: string;
   readonly title: string;
   readonly text: string;
   readonly featured?: boolean;
@@ -26,4 +24,10 @@ export interface Review {
   readonly quote: string;
   readonly author: string;
   readonly tag: string;
+}
+
+export interface StoreHour {
+  readonly day: string;
+  readonly hours: string;
+  readonly dayIndex: number;
 }

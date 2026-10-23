@@ -22,23 +22,23 @@ type Step = 'menu' | 'evento' | 'revenda';
               <div class="options">
                 @if (ifoodUrl) {
                   <a class="option" [href]="ifoodUrl" target="_blank" rel="noreferrer">
-                    <b>🛵</b><span><strong>Pedir pelo iFood</strong><small>Entrega na sua casa</small></span><i>↗</i>
+                    <b>🛵</b><span><strong>Pedir pelo iFood</strong><small>Entrega na sua casa</small></span>
                   </a>
                 }
                 <button class="option" type="button" (click)="step.set('evento')">
-                  <b>🎂</b><span><strong>Eventos</strong><small>Aniversários, casamentos e mais</small></span><i>→</i>
+                  <b>🎂</b><span><strong>Eventos</strong><small>Aniversários, casamentos e mais</small></span>
                 </button>
                 <button class="option" type="button" (click)="step.set('revenda')">
-                  <b>🏪</b><span><strong>Quero revender</strong><small>Parceria para o seu negócio</small></span><i>→</i>
+                  <b>🏪</b><span><strong>Quero revender</strong><small>Parceria para o seu negócio</small></span>
                 </button>
                 <a class="option" [href]="whatsapp()" target="_blank" rel="noreferrer">
-                  <b>💬</b><span><strong>Falar com a gente</strong><small>Conversa direta no WhatsApp</small></span><i>↗</i>
+                  <b>💬</b><span><strong>Falar com a gente</strong><small>Conversa direta no WhatsApp</small></span>
                 </a>
               </div>
             }
             @case ('evento') {
               <div class="modal__top">
-                <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
+                <button class="back" type="button" (click)="step.set('menu')">Voltar</button>
                 <img class="modal__icon" src="favicon.png" alt="">
               </div>
               <h2 id="modal-title">Vamos adoçar o seu <em>evento.</em></h2>
@@ -55,12 +55,12 @@ type Step = 'menu' | 'evento' | 'revenda';
                   <label>Nº de pessoas<input name="qtd" type="number" min="1" inputmode="numeric" [value]="evento().qtd" (input)="setevento('qtd', $event)"></label>
                 </div>
                 <label>Cidade / bairro<input name="local" [value]="evento().local" (input)="setevento('local', $event)"></label>
-                <button class="submit" type="submit" [disabled]="!eventoValid()">Enviar pelo WhatsApp ↗</button>
+                <button class="submit" type="submit" [disabled]="!eventoValid()">Enviar pelo WhatsApp</button>
               </form>
             }
             @case ('revenda') {
               <div class="modal__top">
-                <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
+                <button class="back" type="button" (click)="step.set('menu')">Voltar</button>
                 <img class="modal__icon" src="favicon.png" alt="">
               </div>
               <h2 id="modal-title">Leve o Sonho de Pudim ao seu <em>negócio.</em></h2>
@@ -69,7 +69,7 @@ type Step = 'menu' | 'evento' | 'revenda';
                 <label>Nome do negócio<input name="negocio" [value]="revenda().negocio" (input)="setrevenda('negocio', $event)" required></label>
                 <label>Cidade / bairro<input name="local" [value]="revenda().local" (input)="setrevenda('local', $event)"></label>
                 <label>Volume semanal estimado<input name="volume" [value]="revenda().volume" (input)="setrevenda('volume', $event)" placeholder="Ex.: 40 unidades"></label>
-                <button class="submit" type="submit" [disabled]="!revendaValid()">Enviar pelo WhatsApp ↗</button>
+                <button class="submit" type="submit" [disabled]="!revendaValid()">Enviar pelo WhatsApp</button>
               </form>
             }
           }
