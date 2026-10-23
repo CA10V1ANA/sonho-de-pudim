@@ -4,7 +4,7 @@ import { RevealDirective } from './reveal.directive';
 import { ContactModalComponent } from './contact-modal.component';
 import { ContactService } from './contact.service';
 import { IFOOD_URL } from './contact.config';
-import { Highlight, Occasion, ProductSize } from './models';
+import { Highlight, Occasion, ProductSize, Review } from './models';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,6 @@ export class AppComponent {
   readonly contact = inject(ContactService);
   readonly ifoodUrl = IFOOD_URL;
   readonly year = new Date().getFullYear();
-  readonly activeHighlight = signal(0);
   readonly pointerX = signal(0);
   readonly pointerY = signal(0);
 
@@ -41,9 +40,9 @@ export class AppComponent {
   ];
 
   readonly highlights: readonly Highlight[] = [
-    { number: '01', title: 'Textura delicada', text: 'Cremoso, leve e preparado para derreter na primeira colherada.' },
-    { number: '02', title: 'Feito com carinho', text: 'Uma produção artesanal, cuidada em cada detalhe.' },
-    { number: '03', title: 'Calda generosa', text: 'Brilho, sabor e a quantidade certa para completar o momento.' }
+    { number: '01', title: 'Textura delicada', text: 'Cremoso, lisinho e preparado para derreter na primeira colherada.' },
+    { number: '02', title: 'Feito com carinho', text: 'Uma produção 100% artesanal, cuidada de perto em cada detalhe.' },
+    { number: '03', title: 'Calda generosa', text: 'Brilho dourado, sabor marcante e a quantidade certa de caramelo.' }
   ];
 
   readonly occasions: readonly Occasion[] = [
@@ -52,12 +51,28 @@ export class AppComponent {
     { number: '03', title: 'Para revender', text: 'Leve o Sonho de Pudim ao seu negócio e converse com a gente sobre parceria.' }
   ];
 
+  readonly reviews: readonly Review[] = [
+    {
+      quote: 'Simplesmente perfeito! Super lisinho, sem furinhos e com muita calda de caramelo. Todo mundo aqui em casa amou.',
+      author: 'Cliente no iFood',
+      tag: 'Pudim Tamanho Família'
+    },
+    {
+      quote: 'Pedi o individual pra provar e já virou vício. Chegou super rápido e bem embalado, dá pra sentir o capricho!',
+      author: 'Cliente em Horizonte - CE',
+      tag: 'Pudim Individual'
+    },
+    {
+      quote: 'Encomendei para o aniversário da minha mãe e foi o maior sucesso da festa. Apresentação impecável!',
+      author: 'Encomenda de Evento',
+      tag: 'Tamanho Família'
+    }
+  ];
+
   @HostListener('window:pointermove', ['$event'])
   onPointerMove(event: PointerEvent): void {
     if (event.pointerType !== 'mouse') return;
     this.pointerX.set((event.clientX / innerWidth - 0.5) * 18);
     this.pointerY.set((event.clientY / innerHeight - 0.5) * 14);
   }
-
-  selectHighlight(index: number): void { this.activeHighlight.set(index); }
 }

@@ -61,24 +61,14 @@
       }
     </div>
 
-    <div class="product__experience" appReveal>
-      <div class="product__stage">
-        <span class="orbit orbit--outer"></span><span class="orbit orbit--inner"></span>
-        <div class="product__glow"></div>
-        <img [src]="activeHighlight() === 1 ? 'assets/pudim-familia.png' : 'assets/pudim-individual.png'" alt="Pudim artesanal Sonho de Pudim">
-        <span class="spoon-line" aria-hidden="true"></span>
-      </div>
-      <div class="product__details">
-        <span class="product__counter">0{{ activeHighlight() + 1 }} / 03</span>
-        @for (highlight of highlights; track highlight.number; let index = $index) {
-          <button type="button" [class.active]="activeHighlight() === index" (click)="selectHighlight(index)">
-            <span>{{ highlight.number }}</span><strong>{{ highlight.title }}</strong><i>↗</i>
-          </button>
-        }
-        <div class="detail-copy" aria-live="polite">
-          <span></span><p>{{ highlights[activeHighlight()].text }}</p>
-        </div>
-      </div>
+    <div class="pillars-grid">
+      @for (highlight of highlights; track highlight.number) {
+        <article class="pillar-card" appReveal>
+          <span class="pillar-card__num">{{ highlight.number }}</span>
+          <h3>{{ highlight.title }}</h3>
+          <p>{{ highlight.text }}</p>
+        </article>
+      }
     </div>
   </section>
 
@@ -93,6 +83,25 @@
           @if (occasion.featured) { <img src="assets/mascote-figurinha.png" alt="Mascote de pudim sorridente com uma colher"> }
           <div><span>{{ occasion.number }}</span><h3>{{ occasion.title }}</h3><p>{{ occasion.text }}</p></div>
           <i>{{ occasion.featured ? '✦' : '♡' }}</i>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="reviews">
+    <header class="section-heading" appReveal>
+      <span class="eyebrow">Quem prova, se apaixona</span>
+      <h2>O doce que vira<br><em>elogio</em> na mesa.</h2>
+    </header>
+    <div class="reviews-grid">
+      @for (review of reviews; track review.author) {
+        <article class="review-card" appReveal>
+          <div class="review-card__stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <p>“{{ review.quote }}”</p>
+          <footer>
+            <strong>{{ review.author }}</strong>
+            <span>{{ review.tag }}</span>
+          </footer>
         </article>
       }
     </div>
@@ -131,6 +140,14 @@
     <button class="button button--cream" type="button" (click)="contact.open()">Fale com a gente <span>↗</span></button>
   </section>
 </main>
+
+<button class="floating-cta" type="button" aria-label="Pedir meu pudim" (click)="contact.open()">
+  <span class="floating-cta__icon"><img src="favicon.png" alt=""></span>
+  <span class="floating-cta__text">
+    <small>Bateu a vontade?</small>
+    <strong>Pedir meu pudim ↗</strong>
+  </span>
+</button>
 
 <footer>
   <a class="footer__brand" href="#inicio"><img src="assets/logo.png" alt=""><span>Sonho de Pudim</span></a>

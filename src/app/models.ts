@@ -16,7 +16,12 @@ export interface ProductSize {
   readonly title: string;
   readonly serves: string;
   readonly text: string;
-  readonly price?: string;
   readonly image: string;
   readonly alt: string;
+}
+
+export interface Review {
+  readonly quote: string;
+  readonly author: string;
+  readonly tag: string;
 }
