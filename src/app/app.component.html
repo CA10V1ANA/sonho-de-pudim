@@ -47,12 +47,20 @@
         <article class="size-card" appReveal>
           <div class="size-card__media">
             <span class="size-card__badge">{{ size.serves }}</span>
+            <span class="size-card__tag">✦ Zero Lactose</span>
             <img [src]="size.image" [alt]="size.alt">
           </div>
           <div class="size-card__body">
             <span class="eyebrow">{{ size.badge }}</span>
             <h3>{{ size.title }}</h3>
             <p>{{ size.text }}</p>
+            <div class="size-card__options" aria-label="Versões disponíveis">
+              @for (option of size.options; track option; let isZero = $last) {
+                <span class="size-card__option" [class.size-card__option--zero]="isZero">
+                  <i>{{ isZero ? '🌿' : '🍮' }}</i> {{ option }}
+                </span>
+              }
+            </div>
             <div class="size-card__actions">
               <button class="button button--small" type="button" (click)="contact.open()">Quero encomendar <span>↗</span></button>
             </div>
@@ -121,7 +129,7 @@
         <img src="assets/logo-vazada.png" alt="Marca Sonho de Pudim">
         <div class="story__pills">
           <span>✦ 100% Artesanal</span>
-          <span>✦ Calda Generosa</span>
+          <span>✦ Opção Zero Lactose</span>
           <span>✦ Horizonte - CE</span>
         </div>
       </div>

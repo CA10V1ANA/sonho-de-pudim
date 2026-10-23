@@ -22,26 +22,30 @@ export class AppComponent {
 
   readonly sizes: readonly ProductSize[] = [
     {
-      badge: 'Dose individual',
+      badge: 'Porção individual • 120 ml',
       title: 'Pudim Individual',
-      serves: 'Para 1 pessoa',
+      serves: 'Para 1 pessoa • 120 ml',
+      volume: '120 ml',
+      options: ['Tradicional', 'Zero Lactose'],
       text: 'Na medida certa para matar a vontade de um doce artesanal a qualquer hora, com textura super cremosa e calda generosa.',
       image: 'assets/pudim-individual.png',
-      alt: 'Pudim individual artesanal servido com calda de caramelo'
+      alt: 'Pudim individual de 120 ml servido com calda de caramelo'
     },
     {
-      badge: 'Para compartilhar',
+      badge: 'Para compartilhar • 500 ml',
       title: 'Pudim Tamanho Família',
-      serves: 'Serve até 8 pessoas (8 fatias)',
+      serves: 'Serve até 8 fatias • 500 ml',
+      volume: '500 ml',
+      options: ['Tradicional', 'Zero Lactose'],
       text: 'Perfeito para dividir com quem você ama no almoço em família, encontros especiais e comemorações.',
       image: 'assets/pudim-familia.png',
-      alt: 'Pudim tamanho família para até 8 fatias na embalagem Sonho de Pudim'
+      alt: 'Pudim tamanho família de 500 ml para até 8 fatias na embalagem Sonho de Pudim'
     }
   ];
 
   readonly highlights: readonly Highlight[] = [
     { number: '01', title: 'Textura delicada', text: 'Cremoso, lisinho e preparado para derreter na primeira colherada.' },
-    { number: '02', title: 'Feito com carinho', text: 'Uma produção 100% artesanal, cuidada de perto em cada detalhe.' },
+    { number: '02', title: 'Zero lactose disponível', text: 'Todo o sabor e cremosidade na versão tradicional ou zero lactose.' },
     { number: '03', title: 'Calda generosa', text: 'Brilho dourado, sabor marcante e a quantidade certa de caramelo.' }
   ];
 
@@ -55,17 +59,17 @@ export class AppComponent {
     {
       quote: 'Simplesmente perfeito! Super lisinho, sem furinhos e com muita calda de caramelo. Todo mundo aqui em casa amou.',
       author: 'Cliente no iFood',
-      tag: 'Pudim Tamanho Família'
+      tag: 'Pudim 500 ml • Tamanho Família'
     },
     {
-      quote: 'Pedi o individual pra provar e já virou vício. Chegou super rápido e bem embalado, dá pra sentir o capricho!',
+      quote: 'A opção zero lactose é maravilhosa, não perde nada em cremosidade e sabor. Chegou super rápido e bem embalado!',
       author: 'Cliente em Horizonte - CE',
-      tag: 'Pudim Individual'
+      tag: 'Pudim Zero Lactose'
     },
     {
       quote: 'Encomendei para o aniversário da minha mãe e foi o maior sucesso da festa. Apresentação impecável!',
       author: 'Encomenda de Evento',
-      tag: 'Tamanho Família'
+      tag: 'Pudim 500 ml'
     }
   ];
 
