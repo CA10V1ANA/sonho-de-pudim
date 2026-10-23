@@ -33,7 +33,9 @@ h1 em, h2 em { color: var(--orange); font-weight: 500; }
 .drop--two { bottom: 10%; height: 70px; left: 9%; width: 32px; }
 
 .marquee { background: var(--caramel); color: #fff4d2; overflow: hidden; padding: 16px 0; transform: rotate(-1.2deg) scale(1.02); }
-.marquee div { animation: marquee 22s linear infinite; display: flex; font-family: 'Fraunces', serif; font-size: 18px; gap: 30px; letter-spacing: .12em; width: max-content; }\n.marquee i { color: #ffd681; font-style: normal; }
+.marquee__track { animation: marquee 22s linear infinite; display: flex; font-family: 'Fraunces', serif; font-size: 18px; letter-spacing: .12em; width: max-content; will-change: transform; }
+.marquee__group { align-items: center; display: flex; flex: none; gap: 30px; justify-content: space-around; min-width: 100vw; padding-right: 30px; white-space: nowrap; }
+.marquee i { color: #ffd681; font-style: normal; }
 
 .section-heading { margin: 0 auto 70px; max-width: 760px; text-align: center; }
 .section-heading h2 { font-size: clamp(55px, 7vw, 94px); }
