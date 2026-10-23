@@ -16,7 +16,7 @@ type Step = 'menu' | 'evento' | 'revenda';
 
           @switch (step()) {
             @case ('menu') {
-              <span class="eyebrow">Fale com a gente</span>
+              <span class="eyebrow"><img class="modal__icon" src="favicon.png" alt=""> Fale com a gente</span>
               <h2 id="modal-title">Como podemos <em>ajudar?</em></h2>
               <p class="lead">Escolha o motivo do seu contato.</p>
               <div class="options">
@@ -37,7 +37,10 @@ type Step = 'menu' | 'evento' | 'revenda';
               </div>
             }
             @case ('evento') {
-              <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
+              <div class="modal__top">
+                <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
+                <img class="modal__icon" src="favicon.png" alt="">
+              </div>
               <h2 id="modal-title">Vamos adoçar o seu <em>evento.</em></h2>
               <form (submit)="submit($event, 'evento')">
                 <label>Seu nome<input name="nome" [value]="evento().nome" (input)="setevento('nome', $event)" required autocomplete="name"></label>
@@ -56,7 +59,10 @@ type Step = 'menu' | 'evento' | 'revenda';
               </form>
             }
             @case ('revenda') {
-              <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
+              <div class="modal__top">
+                <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
+                <img class="modal__icon" src="favicon.png" alt="">
+              </div>
               <h2 id="modal-title">Leve o Sonho de Pudim ao seu <em>negócio.</em></h2>
               <form (submit)="submit($event, 'revenda')">
                 <label>Seu nome<input name="nome" [value]="revenda().nome" (input)="setrevenda('nome', $event)" required autocomplete="name"></label>

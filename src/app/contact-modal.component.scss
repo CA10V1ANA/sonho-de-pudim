@@ -5,7 +5,10 @@ h2 { color: var(--chocolate); font-size: 28px; line-height: 1.15; margin: 10px 0
 h2 em { color: var(--orange); }
 .lead { color: var(--muted); margin: 0 0 22px; }
 .close { background: none; border: 0; color: var(--muted); cursor: pointer; font-size: 30px; line-height: 1; position: absolute; right: 18px; top: 16px; }
-.back { background: none; border: 0; color: var(--caramel); cursor: pointer; display: block; font-weight: 700; margin-bottom: 14px; padding: 0; }
+.eyebrow { align-items: center; display: inline-flex; gap: 8px; }
+.modal__top { align-items: center; display: flex; gap: 10px; margin-bottom: 14px; }
+.modal__icon { filter: drop-shadow(0 3px 6px rgba(120, 54, 10, .18)); height: 26px; object-fit: contain; width: 26px; }
+.back { background: none; border: 0; color: var(--caramel); cursor: pointer; display: inline-flex; font-weight: 700; margin: 0; padding: 0; }
 .options { display: grid; gap: 12px; }
 .option { align-items: center; background: #fff; border: 1px solid rgba(159, 77, 23, .15); border-radius: 18px; color: var(--ink); cursor: pointer; display: flex; gap: 14px; padding: 16px 18px; text-align: left; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; width: 100%; }
 .option:hover { border-color: var(--orange); box-shadow: 0 12px 28px rgba(120, 54, 10, .15); transform: translateY(-2px); }
