@@ -9,7 +9,7 @@
       <p>Textura delicada, brilho de caramelo e aquele sabor caseiro que transforma qualquer momento em memória boa.</p>
       <div class="hero__actions">
         <button class="button" type="button" (click)="contact.open()">Quero encomendar <span>↗</span></button>
-        <a class="button button--ifood" [href]="ifoodUrl" target="_blank" rel="noreferrer">Pedir no iFood <span>↗</span></a>
+        <a class="text-link" href="#pudins">Descobrir o sabor <span>↓</span></a>
       </div>
       <div class="hero__note"><span>♡</span><p><strong>Delivery no iFood, encomendas e revenda</strong><br>Centro, Horizonte - CE • Individual e tamanho família.</p></div>
     </div>
@@ -47,9 +47,6 @@
         <article class="size-card" appReveal>
           <div class="size-card__media">
             <span class="size-card__badge">{{ size.serves }}</span>
-            @if (size.price) {
-              <span class="size-card__price">{{ size.price }}</span>
-            }
             <img [src]="size.image" [alt]="size.alt">
           </div>
           <div class="size-card__body">
@@ -57,8 +54,7 @@
             <h3>{{ size.title }}</h3>
             <p>{{ size.text }}</p>
             <div class="size-card__actions">
-              <a class="button button--small button--ifood" [href]="ifoodUrl" target="_blank" rel="noreferrer">Pedir no iFood <span>↗</span></a>
-              <button class="button button--small button--outline" type="button" (click)="contact.open()">Encomendar</button>
+              <button class="button button--small" type="button" (click)="contact.open()">Quero encomendar <span>↗</span></button>
             </div>
           </div>
         </article>

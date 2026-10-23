@@ -34,7 +34,6 @@ export class AppComponent {
       badge: 'Para compartilhar',
       title: 'Pudim Tamanho Família',
       serves: 'Serve até 8 pessoas (8 fatias)',
-      price: 'R$ 40,00',
       text: 'Perfeito para dividir com quem você ama no almoço em família, encontros especiais e comemorações.',
       image: 'assets/pudim-familia.png',
       alt: 'Pudim tamanho família para até 8 fatias na embalagem Sonho de Pudim'
