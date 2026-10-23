@@ -2,7 +2,7 @@
 export const WHATSAPP_NUMBER = '5585992001749';
 export const WHATSAPP_FALLBACK = 'https://w.app/sonhodepudim';
 /** Cole aqui o link da loja no iFood. */
-export const IFOOD_URL = 'https://www.ifood.com.br'; // TODO: trocar pelo link da loja
+export const IFOOD_URL = 'https://www.ifood.com.br/delivery/horizonte-ce/sonho-de-pudim-centro/f6572a94-2ab7-48b8-9585-6d48be6fc8f8';
 
 export function whatsappLink(message?: string): string {
   if (!WHATSAPP_NUMBER) return WHATSAPP_FALLBACK;
