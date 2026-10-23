@@ -1,57 +1,35 @@
 # Sonho de Pudim
 
-Site institucional desenvolvido para apresentar a identidade, os produtos e os canais de atendimento da confeitaria artesanal **Sonho de Pudim**.
+Site-vitrine da confeitaria artesanal Sonho de Pudim, com foco em apresentação da marca, encomendas, revenda e entrega.
 
-## Visão geral
+## Sobre o projeto
 
-O projeto funciona como uma vitrine digital: apresenta a marca de maneira envolvente, comunica os formatos de atendimento e conduz o visitante até o WhatsApp para solicitar informações ou realizar uma encomenda.
-
-### Objetivos
-
-- Fortalecer a presença digital da marca.
-- Apresentar os produtos de forma visual e atrativa.
-- Divulgar encomendas, entregas e oportunidades de revenda.
-- Simplificar o contato pelo WhatsApp.
-- Oferecer uma experiência consistente em celulares e computadores.
-
-## Recursos
-
-- Navegação responsiva.
-- Animações suaves durante a rolagem.
-- Elementos interativos inspirados na calda de caramelo.
-- Vitrine com detalhes clicáveis.
-- Seção explicando o processo de encomenda.
-- Integração com Instagram e WhatsApp.
-- Respeito à preferência do sistema por movimento reduzido.
+A experiência foi construída para apresentar os pudins de forma visual e acolhedora, com navegação simples, destaque para os produtos e chamadas diretas para WhatsApp e Instagram.
 
 ## Tecnologias
 
-- HTML5
-- CSS3
-- JavaScript
-- Vercel
+- Angular
+- TypeScript
+- SCSS
+- Angular Signals
+- CSS animations e Intersection Observer
+- Vercel / Sites para publicação
 
 ## Estrutura
 
-```text
-.
-├── assets/
-│   ├── logo.png
-│   ├── mascote-figurinha.png
-│   └── pudim.png
-├── index.html
-├── script.js
-└── styles.css
+A aplicação utiliza componentes standalone, uma diretiva reutilizável para animações de entrada e modelos tipados para os conteúdos da vitrine. A camada visual é leve e responsiva para funcionar bem em celulares.
+
+## Executar localmente
+
+```bash
+npm install
+npm start
 ```
 
-## Executando localmente
-
-Por ser um projeto estático, basta abrir o arquivo `index.html` no navegador. Para uma experiência mais próxima da produção, também é possível utilizar qualquer servidor HTTP local.
+A aplicação ficará disponível em http://localhost:4200.
 
 ## Demonstração
 
-Acesse a versão publicada: **[sonho-de-pudim.vercel.app](https://sonho-de-pudim.vercel.app)**
+https://sonho-de-pudim-vitrine.secretlyric5.chatgpt.site
 
-## Observação
-
-Este projeto foi desenvolvido para uma marca real. O nome, o logotipo, o mascote e os demais elementos visuais pertencem à Sonho de Pudim e não devem ser reutilizados sem autorização.
+Os materiais de identidade visual utilizados no projeto pertencem à marca Sonho de Pudim.
