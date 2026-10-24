@@ -20,6 +20,7 @@ export interface ProductSize {
   readonly text: string;
   readonly image: string;
   readonly alt: string;
+  readonly containImage?: boolean;
 }
 
 export interface Review {

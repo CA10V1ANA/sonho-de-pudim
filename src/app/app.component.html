@@ -46,7 +46,7 @@
 
   <section class="product" id="pudins">
     <header class="section-heading" appReveal>
-      <span class="eyebrow">Nossos tamanhos</span>
+      <span class="eyebrow">Nossos pudins</span>
       <h2>Bonito de ver.<br><em>Irresistível</em> de provar.</h2>
       <p>Escolha a dose ideal para matar a vontade sozinho ou compartilhar com toda a família.</p>
     </header>
@@ -61,9 +61,9 @@
           (click)="contact.open()"
           (keydown.enter)="contact.open()"
           (keydown.space)="$event.preventDefault(); contact.open()">
-          <div class="size-card__media">
+          <div class="size-card__media" [class.size-card__media--contain]="size.containImage">
             <span class="size-card__badge">{{ size.serves }}</span>
-            <img [src]="size.image" [alt]="size.alt">
+            <img [src]="size.image" [alt]="size.alt" loading="lazy" decoding="async">
           </div>
           <div class="size-card__body">
             <span class="eyebrow">{{ size.badge }}</span>
