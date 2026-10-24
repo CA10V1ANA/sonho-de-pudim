@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estúdio de Artes | Sonho de Pudim</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js" defer></script>
+  <style>
+    :root {
+      --caramel: #9f4d17;
+      --caramel-deep: #77310d;
+      --chocolate: #3d1b0f;
+      --cream: #fff7e5;
+      --milk: #f7e7bd;
+      --honey: #edae49;
+      --orange: #cf691b;
+      --ink: #422416;
+      --muted: #765643;
+      --ifood: #ea1d2c;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f4ead5;
+      color: var(--ink);
+      font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    }
+
+    /* Painel Superior do Estúdio */
+    .studio-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(61, 27, 15, 0.96);
+      backdrop-filter: blur(12px);
+      color: var(--cream);
+      padding: 16px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 3px solid var(--honey);
+      box-shadow: 0 12px 32px rgba(40, 15, 5, 0.25);
+    }
+    .studio-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .studio-brand img {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid var(--honey);
+    }
+    .studio-brand h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 22px;
+      margin: 0;
+      font-weight: 600;
+    }
+    .studio-brand small {
+      color: #ebd5b3;
+      font-size: 12px;
+      display: block;
+    }
+    .studio-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .filter-btn {
+      background: rgba(255, 247, 229, 0.1);
+      color: var(--cream);
+      border: 1px solid rgba(255, 247, 229, 0.22);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font: 600 13px 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--honey);
+      color: var(--chocolate);
+      border-color: var(--honey);
+    }
+    .price-quick {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 247, 229, 0.08);
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(237, 174, 73, 0.35);
+      font-size: 12px;
+    }
+    .price-quick input {
+      width: 84px;
+      background: var(--cream);
+      border: 0;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font: 700 12px 'DM Sans', sans-serif;
+      color: var(--chocolate);
+      text-align: center;
+    }
+
+    .studio-tip {
+      max-width: 1360px;
+      margin: 24px auto 8px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .studio-tip strong { color: var(--chocolate); }
+
+    /* Grade de Artes */
+    .studio-grid {
+      max-width: 1360px;
+      margin: 16px auto 80px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 32px;
+      align-items: start;
+    }
+    .card-wrapper {
+      background: #fffaf0;
+      border: 1px solid #dec69e;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 16px 38px rgba(70, 32, 8, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .card-header h3 {
+      margin: 0;
+      font-size: 15px;
+      color: var(--chocolate);
+    }
+    .card-header span {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: var(--milk);
+      color: var(--caramel-deep);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .viewport-feed {
+      width: 360px;
+      height: 450px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 14px;
+      position: relative;
+      box-shadow: 0 10px 26px rgba(61, 27, 15, 0.16);
+    }
+    .viewport-story {
+      width: 324px;
+      height: 576px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 14px;
+      position: relative;
+      box-shadow: 0 10px 26px rgba(61, 27, 15, 0.16);
+    }
+    .artboard {
+      transform-origin: top left;
+      position: relative;
+      overflow: hidden;
+      user-select: text;
+    }
+    .artboard--feed {
+      width: 1080px;
+      height: 1350px;
+      transform: scale(0.333333);
+    }
+    .artboard--story {
+      width: 1080px;
+      height: 1920px;
+      transform: scale(0.3);
+    }
+    [contenteditable="true"]:hover {
+      outline: 2px dashed rgba(237, 174, 73, 0.75);
+      outline-offset: 4px;
+      cursor: text;
+    }
+    [contenteditable="true"]:focus {
+      outline: 3px solid var(--honey);
+      outline-offset: 6px;
+      border-radius: 6px;
+    }
+
+    .download-btn {
+      width: 100%;
+      background: var(--caramel);
+      color: var(--cream);
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font: 700 14px 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: .25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .download-btn:hover {
+      background: var(--caramel-deep);
+      transform: translateY(-2px);
+    }
+
+    /* Elementos Comuns das Artes (1080px escala real) */
+    .eyebrow-tag {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    .serif-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+    .serif-title em {
+      font-style: italic;
+      font-weight: 500;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+    .pill {
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 24px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-footer {
+      position: absolute;
+      bottom: 44px;
+      left: 64px;
+      right: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 24px;
+      font-weight: 700;
+      padding-top: 24px;
+    }
+    .seal-badge {
+      width: 196px;
+      height: 196px;
+      border-radius: 50%;
+      background: #fffaf0;
+      border: 3px solid #d6a65f;
+      color: var(--chocolate);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(61, 27, 15, 0.22);
+      transform: rotate(9deg);
+    }
+    .seal-badge small { font-size: 20px; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); font-weight: 700; }
+    .seal-badge strong { font-family: 'Fraunces', Georgia, serif; font-size: 26px; line-height: 1.1; margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <header class="studio-bar">
+    <div class="studio-brand">
+      <img src="assets/logo.png" alt="Sonho de Pudim">
+      <div>
+        <h1>Estúdio de Artes • Sonho de Pudim</h1>
+        <small>Clique em qualquer texto para editar e baixe em PNG (1080px)</small>
+      </div>
+    </div>
+    <div class="studio-controls">
+      <div class="price-quick">
+        <span>Preço 120ml:</span>
+        <input id="p120" type="text" value="Consulte" oninput="updatePrices()">
+        <span>500ml:</span>
+        <input id="p500" type="text" value="Consulte" oninput="updatePrices()">
+      </div>
+      <button class="filter-btn active" onclick="filterCards('all', this)">Todas (10)</button>
+      <button class="filter-btn" onclick="filterCards('feed', this)">Feed 4:5 (8)</button>
+      <button class="filter-btn" onclick="filterCards('story', this)">Stories 9:16 (2)</button>
+    </div>
+  </header>
+
+  <div class="studio-tip">
+    <div>💡 <strong>Dica rápida:</strong> Todas as frases, títulos, preços e horários abaixo são editáveis — basta clicar em cima do texto, alterar e clicar em <strong>Baixar PNG</strong>.</div>
+    <div><a href="/" style="color:var(--caramel);font-weight:700;">← Voltar para o site da loja</a></div>
+  </div>
+
+  <main class="studio-grid">
+
+    <!-- 01: VITRINE OFICIAL -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>01 • Vitrine Oficial da Marca</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-01" class="artboard artboard--feed" style="background: radial-gradient(circle at 50% 62%, #ffe7a8 0%, #fff7e5 58%, #f5e2b8 100%); color: var(--chocolate); padding: 64px; text-align: center;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:26px;">
+            <img src="assets/logo.png" alt="" style="width:94px;height:94px;border-radius:50%;box-shadow:0 10px 25px rgba(120,54,10,.2);">
+            <div style="text-align:left;">
+              <span class="eyebrow-tag" style="color:var(--orange);" contenteditable="true">Confeitaria Artesanal</span>
+              <div style="font:600 34px 'Fraunces',Georgia,serif;color:var(--chocolate);" contenteditable="true">Sonho de Pudim</div>
+            </div>
+          </div>
+          <h2 class="serif-title" style="font-size:96px;margin:10px 0 22px;" contenteditable="true">Um sonho em<br>forma de <em style="color:var(--orange);">pudim.</em></h2>
+          <p style="font-size:30px;color:var(--muted);max-width:820px;margin:0 auto 36px;line-height:1.4;" contenteditable="true">Lisinho, sem furinhos, ultra cremoso e com muita calda de caramelo brilhante.</p>
+
+          <div style="position:relative;width:620px;height:560px;margin:0 auto;">
+            <div style="position:absolute;inset:20px;border-radius:300px 300px 44px 44px;background:linear-gradient(160deg,#edae49,#9f4d17);padding:10px;box-shadow:0 34px 70px rgba(95,42,8,.28);">
+              <img src="assets/pudim-hd.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:290px 290px 36px 36px;">
+            </div>
+            <div class="seal-badge" style="position:absolute;right:-34px;top:30px;">
+              <small contenteditable="true">100% Caseiro</small>
+              <strong contenteditable="true">Feito com<br>Carinho ♡</strong>
+            </div>
+          </div>
+
+          <div class="pill-row" style="margin-top:34px;">
+            <span class="pill" style="background:#fffaf0;border:2px solid #dfc496;color:var(--chocolate);" contenteditable="true">🍮 Tradicional</span>
+            <span class="pill" style="background:#f3e3bd;border:2px solid #cfa15a;color:var(--caramel-deep);" contenteditable="true">✦ Zero Lactose</span>
+            <span class="pill" style="background:#3d1b0f;color:#fff7e5;" contenteditable="true">☕ Sabor Café</span>
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(159,77,23,.2);color:var(--caramel-deep);">
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">Centro • Horizonte - CE</span>
+            <span style="background:var(--ifood);color:#fff;padding:8px 22px;border-radius:999px;" contenteditable="true">iFood & WhatsApp</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-01', '01-vitrine-sonho-de-pudim.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 02: NOSSOS TAMANHOS (120ml & 500ml) -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>02 • Tamanhos: Individual & Família</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-02" class="artboard artboard--feed" style="background: linear-gradient(180deg, #9f4d17 0%, #77310d 100%); color: var(--cream); padding: 60px;">
+          <div style="text-align:center;">
+            <span class="eyebrow-tag" style="color:#ffd58e;" contenteditable="true">Escolha a sua dose de felicidade</span>
+            <h2 class="serif-title" style="font-size:86px;margin:14px 0 38px;" contenteditable="true">Dois tamanhos,<br>o mesmo <em style="color:#ffd58e;">encanto.</em></h2>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:10px;">
+            <div style="background:#fffaf0;color:var(--chocolate);border-radius:40px;overflow:hidden;box-shadow:0 28px 60px rgba(30,10,2,.32);display:flex;flex-direction:column;">
+              <div style="height:410px;background:radial-gradient(circle,#fff6dc,#dfa243);position:relative;">
+                <span style="position:absolute;top:22px;left:22px;background:var(--chocolate);color:#fff7e5;padding:10px 22px;border-radius:999px;font-weight:800;font-size:20px;" contenteditable="true">120 ml • 1 pessoa</span>
+                <img src="assets/pudim-individual.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+              </div>
+              <div style="padding:34px;">
+                <h3 style="font:600 44px 'Fraunces',Georgia,serif;margin:0 0 12px;" contenteditable="true">Individual</h3>
+                <p style="font-size:24px;color:var(--muted);line-height:1.45;margin:0 0 20px;" contenteditable="true">Na medida certa para matar a vontade de doce a qualquer hora do dia.</p>
+                <div class="price-120-badge" style="background:var(--milk);color:var(--caramel-deep);padding:12px 22px;border-radius:999px;font-weight:800;font-size:24px;display:inline-block;" contenteditable="true">Peça o seu ♡</div>
+              </div>
+            </div>
+
+            <div style="background:#fffaf0;color:var(--chocolate);border-radius:40px;overflow:hidden;box-shadow:0 28px 60px rgba(30,10,2,.32);display:flex;flex-direction:column;">
+              <div style="height:410px;background:radial-gradient(circle,#fff6dc,#dfa243);position:relative;padding:20px;">
+                <span style="position:absolute;top:22px;left:22px;background:var(--caramel);color:#fff7e5;padding:10px 22px;border-radius:999px;font-weight:800;font-size:20px;" contenteditable="true">500 ml • Até 8 fatias</span>
+                <img src="assets/pudim-familia.png" alt="" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 20px 24px rgba(61,27,15,.25));">
+              </div>
+              <div style="padding:34px;">
+                <h3 style="font:600 44px 'Fraunces',Georgia,serif;margin:0 0 12px;" contenteditable="true">Tamanho Família</h3>
+                <p style="font-size:24px;color:var(--muted);line-height:1.45;margin:0 0 20px;" contenteditable="true">Perfeito para o almoço em família, visitas especiais e comemorações.</p>
+                <div class="price-500-badge" style="background:var(--honey);color:var(--chocolate);padding:12px 22px;border-radius:999px;font-weight:800;font-size:24px;display:inline-block;" contenteditable="true">Para compartilhar ✦</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align:center;margin-top:34px;font-size:26px;font-weight:700;color:#ffe6b3;" contenteditable="true">
+            Disponíveis nas versões: Tradicional • Zero Lactose • Café
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(255,247,229,.22);color:#fff7e5;">
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">WhatsApp (85) 99200-1749</span>
+            <span contenteditable="true">Delivery no iFood</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-02', '02-tamanhos-120ml-e-500ml.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 03: SABOR CAFÉ -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>03 • Destaque Sabor Café ☕</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-03" class="artboard artboard--feed" style="background: radial-gradient(circle at 50% 45%, #5c2a16 0%, #3d1b0f 65%, #261008 100%); color: var(--cream); padding: 64px; text-align: center;">
+          <span class="eyebrow-tag" style="background:rgba(237,174,73,.18);color:var(--honey);padding:12px 28px;border-radius:999px;border:1px solid rgba(237,174,73,.4);" contenteditable="true">☕ Sabor Especial Artesanal</span>
+          <h2 class="serif-title" style="font-size:92px;margin:24px 0 18px;" contenteditable="true">O encontro perfeito:<br><em style="color:var(--honey);">pudim + café.</em></h2>
+          <p style="font-size:28px;color:#e4cbb6;max-width:820px;margin:0 auto 38px;line-height:1.45;" contenteditable="true">Textura aveludada com o aroma marcante do café e calda intensa de caramelo.</p>
+
+          <div style="width:650px;height:580px;margin:0 auto;border-radius:46px;padding:12px;background:linear-gradient(145deg,#edae49,#9f4d17);box-shadow:0 36px 80px rgba(0,0,0,.48);position:relative;">
+            <img src="assets/pudim-cafe.png" alt="Pudim de Café" style="width:100%;height:100%;object-fit:cover;border-radius:36px;">
+            <div style="position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);background:#fff7e5;color:var(--chocolate);padding:16px 38px;border-radius:999px;font-weight:800;font-size:25px;box-shadow:0 16px 35px rgba(0,0,0,.35);white-space:nowrap;" contenteditable="true">
+              Individual (120 ml) • Família (500 ml)
+            </div>
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(255,247,229,.16);color:#f7e7bd;">
+            <span contenteditable="true">Sonho de Pudim</span>
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span style="color:var(--honey);" contenteditable="true">Peça no iFood ou WhatsApp</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-03', '03-sabor-cafe-especial.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 04: ZERO LACTOSE -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>04 • Opção Zero Lactose ✦</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-04" class="artboard artboard--feed" style="background: linear-gradient(165deg, #fffaf0 0%, #f5e4be 100%); color: var(--chocolate); padding: 64px; text-align: center;">
+          <span class="eyebrow-tag" style="background:#e8f5ec;color:#185a2d;border:2px solid #98cfa6;padding:12px 30px;border-radius:999px;" contenteditable="true">✦ Leveza sem abrir mão do sabor</span>
+          <h2 class="serif-title" style="font-size:94px;margin:24px 0 18px;" contenteditable="true">Zero Lactose.<br><em style="color:var(--caramel);">100% cremoso.</em></h2>
+          <p style="font-size:29px;color:var(--muted);max-width:840px;margin:0 auto 38px;line-height:1.45;" contenteditable="true">Feito especialmente para você aproveitar cada colherada com todo o sabor artesanal e muita calda.</p>
+
+          <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;max-width:940px;margin:0 auto;">
+            <div style="height:540px;border-radius:42px;overflow:hidden;border:8px solid #fff;box-shadow:0 28px 60px rgba(95,45,10,.18);">
+              <img src="assets/pudim-individual.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:22px;text-align:left;">
+              <div style="background:#fff;padding:28px;border-radius:28px;border:2px solid #e2c99d;box-shadow:0 14px 30px rgba(90,43,10,.06);">
+                <div style="font-size:22px;font-weight:800;color:var(--orange);" contenteditable="true">✦ SEM FURINHOS</div>
+                <div style="font-size:24px;color:var(--ink);margin-top:6px;" contenteditable="true">Mesma textura lisinha do tradicional!</div>
+              </div>
+              <div style="background:#fff;padding:28px;border-radius:28px;border:2px solid #e2c99d;box-shadow:0 14px 30px rgba(90,43,10,.06);">
+                <div style="font-size:22px;font-weight:800;color:var(--orange);" contenteditable="true">🍮 DOIS TAMANHOS</div>
+                <div style="font-size:24px;color:var(--ink);margin-top:6px;" contenteditable="true">Pote de 120 ml e Família de 500 ml.</div>
+              </div>
+              <img src="assets/mascote-padrao.png" alt="" style="width:210px;margin:0 auto;filter:drop-shadow(0 14px 18px rgba(61,27,15,.18));">
+            </div>
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(159,77,23,.18);color:var(--caramel-deep);">
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">Horizonte - CE</span>
+            <span contenteditable="true">WhatsApp (85) 99200-1749</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-04', '04-pudim-zero-lactose.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 05: DELIVERY IFOOD -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>05 • Delivery Rápido no iFood 🛵</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-05" class="artboard artboard--feed" style="background: radial-gradient(circle at 50% 52%, #fff6dc 0%, #f5d288 65%, #e29d39 100%); color: var(--chocolate); padding: 64px; text-align: center;">
+          <div style="display:inline-flex;align-items:center;gap:14px;background:var(--ifood);color:#fff;padding:14px 36px;border-radius:999px;font-size:26px;font-weight:800;box-shadow:0 14px 32px rgba(234,29,44,.32);" contenteditable="true">
+            🛵 Peça pelo iFood • Entrega Rápida
+          </div>
+          <h2 class="serif-title" style="font-size:94px;margin:26px 0 16px;" contenteditable="true">Bateu a vontade<br>de <em style="color:var(--ifood);">doce agora?</em></h2>
+          <p style="font-size:30px;color:#5a3219;max-width:820px;margin:0 auto 24px;line-height:1.4;" contenteditable="true">O seu Sonho de Pudim chega fresquinho, bem embalado e pronto para adoçar o seu dia!</p>
+
+          <div style="position:relative;height:600px;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/mascote-delivery.png" alt="Mascote Delivery" style="height:580px;object-fit:contain;filter:drop-shadow(0 28px 34px rgba(61,27,15,.26));">
+          </div>
+
+          <div style="background:var(--chocolate);color:#fff7e5;padding:24px 44px;border-radius:999px;display:inline-flex;align-items:center;gap:18px;font-size:28px;font-weight:700;box-shadow:0 20px 44px rgba(61,27,15,.3);" contenteditable="true">
+            Busque por “Sonho de Pudim” no iFood!
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(61,27,15,.18);color:var(--chocolate);">
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">Centro • Horizonte - CE</span>
+            <span contenteditable="true">(85) 99200-1749</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-05', '05-delivery-ifood.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 06: ENCOMENDAS PARA EVENTOS -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>06 • Encomendas para Eventos 🎂</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-06" class="artboard artboard--feed" style="background: linear-gradient(170deg, #fffaf0 0%, #f7e4bc 60%, #ecc071 100%); color: var(--chocolate); padding: 64px; text-align: center;">
+          <span class="eyebrow-tag" style="color:var(--caramel);" contenteditable="true">🎂 Aniversários • Casamentos • Celebrações</span>
+          <h2 class="serif-title" style="font-size:90px;margin:20px 0 18px;" contenteditable="true">Vamos adoçar<br>o seu <em style="color:var(--orange);">evento!</em></h2>
+          <p style="font-size:29px;color:var(--muted);max-width:820px;margin:0 auto 30px;line-height:1.42;" contenteditable="true">Surpreenda seus convidados com pudins artesanais impecáveis na apresentação e no sabor.</p>
+
+          <div style="position:relative;height:560px;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/mascote-eventos.png" alt="Mascote Eventos" style="height:540px;object-fit:contain;filter:drop-shadow(0 26px 32px rgba(90,40,10,.22));">
+          </div>
+
+          <div class="pill-row" style="margin-bottom:20px;">
+            <span class="pill" style="background:#fff;border:2px solid #d8b67f;color:var(--chocolate);" contenteditable="true">✨ Potes Individuais 120 ml</span>
+            <span class="pill" style="background:var(--caramel);color:#fff7e5;" contenteditable="true">🍮 Tamanho Família 500 ml</span>
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(159,77,23,.2);color:var(--chocolate);">
+            <span contenteditable="true">Orçamentos no WhatsApp:</span>
+            <span style="background:var(--chocolate);color:#fff7e5;padding:10px 26px;border-radius:999px;" contenteditable="true">(85) 99200-1749</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-06', '06-encomendas-eventos.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 07: PARCERIA & REVENDA -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>07 • Parceria & Revenda B2B 🏪</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-07" class="artboard artboard--feed" style="background: linear-gradient(165deg, #3d1b0f 0%, #5e2912 58%, #77310d 100%); color: var(--cream); padding: 64px; text-align: center;">
+          <span class="eyebrow-tag" style="color:var(--honey);" contenteditable="true">🏪 Seja um Ponto Parceiro</span>
+          <h2 class="serif-title" style="font-size:86px;margin:20px 0 18px;" contenteditable="true">Leve o Sonho de Pudim<br>ao seu <em style="color:var(--honey);">negócio.</em></h2>
+          <p style="font-size:28px;color:#e7d0bc;max-width:840px;margin:0 auto 28px;line-height:1.42;" contenteditable="true">A sobremesa artesanal perfeita para restaurantes, cafeterias, padarias, docerias e empórios.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin:20px 0;">
+            <img src="assets/mascote-revenda.png" alt="Mascote Revenda" style="width:100%;max-height:520px;object-fit:contain;filter:drop-shadow(0 24px 32px rgba(0,0,0,.4));">
+            <div style="display:flex;flex-direction:column;gap:20px;text-align:left;">
+              <div style="background:rgba(255,247,229,.1);border:1px solid rgba(237,174,73,.35);padding:26px;border-radius:26px;">
+                <strong style="color:var(--honey);font-size:24px;display:block;" contenteditable="true">✓ Padrão Artesanal</strong>
+                <span style="font-size:22px;color:#fff7e5;" contenteditable="true">Embalagem lacrada, linda e pronta para venda.</span>
+              </div>
+              <div style="background:rgba(255,247,229,.1);border:1px solid rgba(237,174,73,.35);padding:26px;border-radius:26px;">
+                <strong style="color:var(--honey);font-size:24px;display:block;" contenteditable="true">✓ Giro Rápido</strong>
+                <span style="font-size:22px;color:#fff7e5;" contenteditable="true">Sabores Tradicional, Zero Lactose e Café.</span>
+              </div>
+              <div style="background:var(--honey);color:var(--chocolate);padding:22px 28px;border-radius:999px;font-weight:800;font-size:24px;text-align:center;" contenteditable="true">
+                Solicite tabela de revenda!
+              </div>
+            </div>
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(255,247,229,.18);color:#fff7e5;">
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">Parcerias: (85) 99200-1749</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-07', '07-parceria-e-revenda.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 08: PARA PRESENTEAR -->
+    <div class="card-wrapper" data-kind="feed">
+      <div class="card-header"><h3>08 • Para Presentear com Afeto ♡</h3><span>Feed 1080×1350</span></div>
+      <div class="viewport-feed">
+        <div id="art-08" class="artboard artboard--feed" style="background: linear-gradient(155deg, #edae49 0%, #d78624 65%, #9f4d17 100%); color: var(--chocolate); padding: 64px; text-align: center;">
+          <span class="eyebrow-tag" style="background:#fffaf0;color:var(--caramel);padding:12px 30px;border-radius:999px;" contenteditable="true">♡ Demonstre carinho em forma de doce</span>
+          <h2 class="serif-title" style="font-size:92px;margin:24px 0 18px;color:#fffaf0;" contenteditable="true">Um presente que<br>vira <em style="color:var(--chocolate);">memória boa.</em></h2>
+          <p style="font-size:29px;color:#fff7e5;max-width:820px;margin:0 auto 30px;line-height:1.42;" contenteditable="true">Delicado, artesanal e cheio de afeto — perfeito para surpreender quem você ama.</p>
+
+          <div style="background:#fffaf0;border-radius:220px 220px 44px 44px;width:680px;height:560px;margin:0 auto;padding:30px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 30px 65px rgba(61,27,15,.28);">
+            <img src="assets/pudim-familia.png" alt="" style="max-height:460px;object-fit:contain;filter:drop-shadow(0 24px 28px rgba(61,27,15,.24));">
+            <img src="assets/mascote-padrao.png" alt="" style="position:absolute;right:-55px;bottom:-25px;width:250px;transform:rotate(-6deg);filter:drop-shadow(0 16px 20px rgba(61,27,15,.25));">
+          </div>
+
+          <div class="brand-footer" style="border-top:2px solid rgba(255,250,240,.32);color:#fffaf0;">
+            <span contenteditable="true">Sonho de Pudim</span>
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">Encomende no WhatsApp</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-08', '08-para-presentear.png', 1080, 1350)">⬇ Baixar PNG (1080×1350)</button>
+    </div>
+
+    <!-- 09: STORY CARDÁPIO DIGITAL -->
+    <div class="card-wrapper" data-kind="story">
+      <div class="card-header"><h3>09 • Story Cardápio & Preços 📋</h3><span>Story 1080×1920</span></div>
+      <div class="viewport-story">
+        <div id="art-09" class="artboard artboard--story" style="background: linear-gradient(180deg, #fff7e5 0%, #f5dfb0 100%); color: var(--chocolate); padding: 80px 68px;">
+          <div style="text-align:center;margin-bottom:36px;">
+            <img src="assets/logo.png" alt="" style="width:150px;height:150px;border-radius:50%;margin:0 auto 20px;box-shadow:0 16px 36px rgba(120,54,10,.22);">
+            <span class="eyebrow-tag" style="color:var(--orange);" contenteditable="true">Cardápio Artesanal</span>
+            <h2 class="serif-title" style="font-size:88px;margin-top:12px;" contenteditable="true">Nosso <em style="color:var(--caramel);">Cardápio</em></h2>
+          </div>
+
+          <!-- Bloco Individual -->
+          <div style="background:#fffaf0;border:3px solid #dfc496;border-radius:40px;padding:38px;margin-bottom:32px;display:grid;grid-template-columns:230px 1fr;gap:30px;align-items:center;box-shadow:0 20px 45px rgba(90,43,10,.08);">
+            <img src="assets/pudim-individual.png" alt="" style="width:230px;height:230px;object-fit:cover;border-radius:28px;">
+            <div>
+              <span style="color:var(--orange);font-weight:800;font-size:21px;text-transform:uppercase;letter-spacing:.12em;" contenteditable="true">Porção Individual • 120 ml</span>
+              <h3 style="font:600 46px 'Fraunces',Georgia,serif;margin:6px 0 10px;" contenteditable="true">Pudim Individual</h3>
+              <p style="font-size:24px;color:var(--muted);margin:0 0 16px;" contenteditable="true">Para 1 pessoa • Calda generosa</p>
+              <div class="story-price-120" style="background:var(--caramel);color:#fff7e5;padding:12px 28px;border-radius:999px;font-size:28px;font-weight:800;display:inline-block;" contenteditable="true">Peça já • 120 ml</div>
+            </div>
+          </div>
+
+          <!-- Bloco Família -->
+          <div style="background:#fffaf0;border:3px solid #dfc496;border-radius:40px;padding:38px;margin-bottom:36px;display:grid;grid-template-columns:230px 1fr;gap:30px;align-items:center;box-shadow:0 20px 45px rgba(90,43,10,.08);">
+            <img src="assets/pudim-familia.png" alt="" style="width:230px;height:230px;object-fit:contain;background:#f7e7bd;border-radius:28px;padding:12px;">
+            <div>
+              <span style="color:var(--orange);font-weight:800;font-size:21px;text-transform:uppercase;letter-spacing:.12em;" contenteditable="true">Para Compartilhar • 500 ml</span>
+              <h3 style="font:600 46px 'Fraunces',Georgia,serif;margin:6px 0 10px;" contenteditable="true">Tamanho Família</h3>
+              <p style="font-size:24px;color:var(--muted);margin:0 0 16px;" contenteditable="true">Serve até 8 fatias • Embalagem especial</p>
+              <div class="story-price-500" style="background:var(--chocolate);color:#fff7e5;padding:12px 28px;border-radius:999px;font-size:28px;font-weight:800;display:inline-block;" contenteditable="true">Peça já • 500 ml</div>
+            </div>
+          </div>
+
+          <!-- Sabores -->
+          <div style="background:var(--chocolate);color:#fff7e5;border-radius:36px;padding:38px;text-align:center;">
+            <div style="font-size:22px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--honey);margin-bottom:20px;" contenteditable="true">Escolha a sua versão favorita</div>
+            <div class="pill-row">
+              <span class="pill" style="background:#fff7e5;color:var(--chocolate);" contenteditable="true">🍮 Tradicional</span>
+              <span class="pill" style="background:#edae49;color:var(--chocolate);" contenteditable="true">✦ Zero Lactose</span>
+              <span class="pill" style="background:#9f4d17;color:#fff7e5;" contenteditable="true">☕ Café</span>
+            </div>
+          </div>
+
+          <div class="brand-footer" style="bottom:56px;border-top:2px solid rgba(159,77,23,.22);">
+            <span contenteditable="true">📲 (85) 99200-1749</span>
+            <span style="background:var(--ifood);color:#fff;padding:10px 26px;border-radius:999px;" contenteditable="true">🛵 Pedir no iFood</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-09', '09-story-cardapio-sonho-de-pudim.png', 1080, 1920)">⬇ Baixar Story PNG (1080×1920)</button>
+    </div>
+
+    <!-- 10: STORY HORÁRIOS & ATENDIMENTO -->
+    <div class="card-wrapper" data-kind="story">
+      <div class="card-header"><h3>10 • Story Horários da Loja 🕒</h3><span>Story 1080×1920</span></div>
+      <div class="viewport-story">
+        <div id="art-10" class="artboard artboard--story" style="background: linear-gradient(180deg, #9f4d17 0%, #5c270b 100%); color: var(--cream); padding: 84px 68px; text-align: center;">
+          <img src="assets/logo-vazada.png" alt="Sonho de Pudim" style="height:220px;margin:0 auto 14px;object-fit:contain;">
+          <span class="eyebrow-tag" style="color:#ffd58e;" contenteditable="true">Centro • Horizonte - CE</span>
+          <h2 class="serif-title" style="font-size:84px;margin:16px 0 42px;" contenteditable="true">Horários de<br><em style="color:#ffd58e;">Atendimento</em></h2>
+
+          <div style="background:#fffaf0;color:var(--chocolate);border-radius:42px;padding:42px 48px;text-align:left;box-shadow:0 30px 70px rgba(25,8,2,.38);">
+            <div style="display:flex;justify-content:space-between;padding:22px 0;border-bottom:2px dashed rgba(159,77,23,.2);font-size:30px;">
+              <strong contenteditable="true">Segunda e Terça</strong>
+              <span style="color:var(--caramel);font-weight:800;" contenteditable="true">08:00 às 17:00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:22px 0;border-bottom:2px dashed rgba(159,77,23,.2);font-size:30px;">
+              <strong contenteditable="true">Quarta-feira</strong>
+              <span style="color:var(--caramel);font-weight:800;" contenteditable="true">11:00 às 15:00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:22px 0;border-bottom:2px dashed rgba(159,77,23,.2);font-size:30px;">
+              <strong contenteditable="true">Quinta, Sexta e Sábado</strong>
+              <span style="color:var(--caramel);font-weight:800;" contenteditable="true">08:00 às 17:00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:22px 0;font-size:30px;">
+              <strong contenteditable="true">Domingo</strong>
+              <span style="color:var(--caramel);font-weight:800;" contenteditable="true">09:00 às 14:00</span>
+            </div>
+          </div>
+
+          <img src="assets/mascote-padrao.png" alt="" style="height:310px;margin:36px auto 10px;object-fit:contain;filter:drop-shadow(0 22px 26px rgba(0,0,0,.35));">
+
+          <div class="brand-footer" style="bottom:56px;border-top:2px solid rgba(255,247,229,.22);">
+            <span contenteditable="true">@sonhodepudim_</span>
+            <span contenteditable="true">WhatsApp (85) 99200-1749</span>
+          </div>
+        </div>
+      </div>
+      <button class="download-btn" onclick="downloadArt('art-10', '10-story-horarios-sonho-de-pudim.png', 1080, 1920)">⬇ Baixar Story PNG (1080×1920)</button>
+    </div>
+
+  </main>
+
+  <script>
+    function filterCards(kind, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.card-wrapper').forEach(card => {
+        card.style.display = (kind === 'all' || card.dataset.kind === kind) ? 'flex' : 'none';
+      });
+    }
+
+    function updatePrices() {
+      const p120 = document.getElementById('p120').value.trim();
+      const p500 = document.getElementById('p500').value.trim();
+      document.querySelectorAll('.price-120-badge, .story-price-120').forEach(el => {
+        el.textContent = p120 && p120.toLowerCase() !== 'consulte' ? `120 ml • ${p120}` : 'Peça já • 120 ml';
+      });
+      document.querySelectorAll('.price-500-badge, .story-price-500').forEach(el => {
+        el.textContent = p500 && p500.toLowerCase() !== 'consulte' ? `500 ml • ${p500}` : 'Peça já • 500 ml';
+      });
+    }
+
+    async function downloadArt(id, filename, width, height) {
+      const el = document.getElementById(id);
+      if (!window.htmlToImage) {
+        alert('Aguarde o carregamento da biblioteca de exportação (verifique sua conexão com a internet) ou utilize as imagens prontas na pasta designs/prontas-para-postar!');
+        return;
+      }
+      const prevTransform = el.style.transform;
+      try {
+        el.style.transform = 'none';
+        const dataUrl = await window.htmlToImage.toPng(el, {
+          width,
+          height,
+          pixelRatio: 1,
+          cacheBust: true
+        });
+        const a = document.createElement('a');
+        a.download = filename;
+        a.href = dataUrl;
+        a.click();
+      } catch (err) {
+        alert('Para baixar alterações direto pelo navegador, abra pelo servidor do projeto (npm start -> http://localhost:4200/estudio-artes.html) ou pelo link da Vercel!');
+        console.error(err);
+      } finally {
+        el.style.transform = prevTransform;
+      }
+    }
+  </script>
+</body>
+</html>
