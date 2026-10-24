@@ -19,8 +19,7 @@ import { ContactService } from './contact.service';
         <div class="links" [class.open]="menuOpen()">
           <a href="#pudins" (click)="close()">O nosso pudim</a>
           <a href="#experiencia" (click)="close()">Momentos</a>
-          <a href="#horarios" (click)="close()">Horários</a>
-          <a href="#historia" (click)="close()">Nossa essência</a>
+          <button class="nav-link" type="button" (click)="close(); contact.open('horarios')">Horários</button>
           <button class="button button--small" type="button" (click)="close(); contact.open()">Fazer encomenda</button>
         </div>
       </nav>

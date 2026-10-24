@@ -1,8 +1,7 @@
 import { Component, HostListener, computed, effect, inject, signal } from '@angular/core';
 import { ContactService } from './contact.service';
 import { IFOOD_URL, whatsappLink } from './contact.config';
-
-type Step = 'menu' | 'evento' | 'revenda';
+import { ModalStep } from './models';
 
 @Component({
   selector: 'app-contact-modal',
@@ -19,6 +18,21 @@ type Step = 'menu' | 'evento' | 'revenda';
               <span class="eyebrow"><img class="modal__icon" src="favicon.png" alt=""> Fale com a gente</span>
               <h2 id="modal-title">Como podemos <em>ajudar?</em></h2>
               <p class="lead">Escolha o motivo do seu contato.</p>
+
+              <button
+                class="status-banner"
+                [class.is-open]="contact.status().isOpen"
+                [class.is-closed]="!contact.status().isOpen"
+                type="button"
+                (click)="openHorariosFromMenu()">
+                <i class="status-dot" aria-hidden="true"></i>
+                <span class="status-banner__copy">
+                  <strong>{{ contact.status().badgeLabel }}</strong>
+                  <small>{{ contact.status().detailLabel }}</small>
+                </span>
+                <span class="status-banner__action">Ver horários</span>
+              </button>
+
               <div class="options">
                 @if (ifoodUrl) {
                   <a class="option" [href]="ifoodUrl" target="_blank" rel="noreferrer">
@@ -35,6 +49,49 @@ type Step = 'menu' | 'evento' | 'revenda';
                   <b>💬</b><span><strong>Falar com a gente</strong><small>Conversa direta no WhatsApp</small></span>
                 </a>
               </div>
+            }
+            @case ('horarios') {
+              @if (fromMenu()) {
+                <div class="modal__top">
+                  <button class="back" type="button" (click)="step.set('menu')">Voltar</button>
+                  <img class="modal__icon" src="favicon.png" alt="">
+                </div>
+              } @else {
+                <span class="eyebrow"><img class="modal__icon" src="favicon.png" alt=""> Centro • Horizonte - CE</span>
+              }
+              <h2 id="modal-title">Horários da <em>nossa loja.</em></h2>
+
+              <div
+                class="hours-status"
+                [class.is-open]="contact.status().isOpen"
+                [class.is-closed]="!contact.status().isOpen">
+                <i class="status-dot" aria-hidden="true"></i>
+                <strong>{{ contact.status().badgeLabel }}</strong>
+                <span>• {{ contact.status().detailLabel }}</span>
+              </div>
+
+              <ul class="hours-list">
+                @for (item of contact.storeHours; track item.day) {
+                  @let isToday = item.dayIndex === contact.status().todayIndex;
+                  <li
+                    [class.is-today]="isToday"
+                    [class.is-open]="isToday && contact.status().isOpen"
+                    [class.is-closed]="isToday && !contact.status().isOpen">
+                    <span class="hours-list__day">
+                      @if (isToday) {
+                        <i class="status-dot" aria-hidden="true"></i>
+                      }
+                      {{ item.day }}
+                      @if (isToday) {
+                        <b class="day-badge">{{ contact.status().isOpen ? 'Aberto' : 'Fechado' }}</b>
+                      }
+                    </span>
+                    <span class="hours-list__time">{{ item.open }} às {{ item.close }}</span>
+                  </li>
+                }
+              </ul>
+
+              <button class="submit hours-cta" type="button" (click)="step.set('menu')">Fazer encomenda</button>
             }
             @case ('evento') {
               <div class="modal__top">
@@ -80,7 +137,8 @@ type Step = 'menu' | 'evento' | 'revenda';
 })
 export class ContactModalComponent {
   readonly contact = inject(ContactService);
-  readonly step = signal<Step>('menu');
+  readonly step = signal<ModalStep>('menu');
+  readonly fromMenu = signal(false);
   readonly ifoodUrl = IFOOD_URL;
 
   readonly evento = signal({ nome: '', tipo: '', data: '', qtd: '', local: '' });
@@ -97,11 +155,17 @@ export class ContactModalComponent {
       const open = this.contact.isOpen();
       document.body.style.overflow = open ? 'hidden' : '';
       if (open) {
-        this.step.set('menu');
+        this.fromMenu.set(false);
+        this.step.set(this.contact.initialStep());
         this.evento.set({ nome: '', tipo: '', data: '', qtd: '', local: '' });
         this.revenda.set({ nome: '', negocio: '', local: '', volume: '' });
       }
     });
+  }
+
+  openHorariosFromMenu(): void {
+    this.fromMenu.set(true);
+    this.step.set('horarios');
   }
 
   whatsapp(): string { return whatsappLink('Olá! Gostaria de falar com vocês.'); }

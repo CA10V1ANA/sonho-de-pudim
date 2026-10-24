@@ -1,11 +1,7 @@
-export interface Highlight {
-  readonly title: string;
-  readonly text: string;
-}
-
 export interface Occasion {
   readonly title: string;
   readonly text: string;
+  readonly step: ModalStep;
   readonly featured?: boolean;
 }
 
@@ -32,8 +28,18 @@ export interface Review {
   readonly tag: string;
 }
 
+export type ModalStep = 'menu' | 'evento' | 'revenda' | 'horarios';
+
 export interface StoreHour {
   readonly day: string;
-  readonly hours: string;
+  readonly open: string;
+  readonly close: string;
   readonly dayIndex: number;
+}
+
+export interface StoreStatus {
+  readonly isOpen: boolean;
+  readonly todayIndex: number;
+  readonly badgeLabel: string;
+  readonly detailLabel: string;
 }
