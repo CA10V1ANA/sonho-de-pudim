@@ -6,8 +6,13 @@ h2 em { color: var(--orange); }
 .lead { color: var(--muted); margin: 0 0 16px; }
 .close { background: none; border: 0; color: var(--muted); cursor: pointer; font-size: 30px; line-height: 1; position: absolute; right: 18px; top: 16px; }
 .eyebrow { align-items: center; display: inline-flex; gap: 8px; }
-.modal__top { align-items: center; display: flex; gap: 10px; margin-bottom: 14px; }
+.modal__top { align-items: center; display: flex; gap: 10px; margin-bottom: 12px; }
 .modal__icon { filter: drop-shadow(0 3px 6px rgba(120, 54, 10, .18)); height: 26px; object-fit: contain; width: 26px; }
+.modal__hero { align-items: center; display: grid; gap: 14px; grid-template-columns: 1fr auto; margin-bottom: 4px; }
+.modal__hero h2 { margin: 8px 0 0; }
+.modal__mascot-badge { align-items: center; background: #faecd0; border: 1.5px solid rgba(237, 174, 73, .55); border-radius: 50%; display: grid; flex: none; height: 92px; place-items: center; transition: transform .3s ease; width: 92px; }
+.modal__mascot-badge:hover { transform: rotate(5deg) scale(1.05); }
+.modal__mascot-badge img { height: 82px; object-fit: contain; width: 82px; }
 .back { background: none; border: 0; color: var(--caramel); cursor: pointer; display: inline-flex; font-weight: 700; margin: 0; padding: 0; }
 
 .status-dot { border-radius: 50%; display: inline-block; flex: none; height: 9px; width: 9px; }

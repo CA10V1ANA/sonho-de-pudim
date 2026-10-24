@@ -86,6 +86,49 @@ export class AppComponent {
     }
   ];
 
+  readonly journeySteps = [
+    { title: 'Escolha o canal', text: 'Peça direto pelo iFood ou chame a gente no WhatsApp.' },
+    { title: 'Escolha o tamanho', text: 'Pudim individual (120 ml) ou tamanho família (500 ml • até 8 fatias).' },
+    { title: 'Receba fresquinho', text: 'Entrega rápida em Horizonte - CE ou retirada combinada.' }
+  ] as const;
+
+  private readonly scooterMessages = [
+    'Bibi! Saindo um pudim fresquinho!',
+    'Sem furinhos e com muuuita calda! ♡',
+    'Chega rapidinho aí em Horizonte - CE!',
+    'Deu vontade? Bora pedir o seu! ✦'
+  ] as const;
+
+  readonly activeJourneyStep = signal(0);
+  readonly scooterRevving = signal(false);
+  readonly scooterBubble = signal<string | null>(null);
+  private scooterClickCount = 0;
+  private revTimer?: ReturnType<typeof setTimeout>;
+
+  selectJourneyStep(index: number): void {
+    if (this.activeJourneyStep() === index) return;
+    this.activeJourneyStep.set(index);
+    this.triggerRev();
+  }
+
+  interactScooter(): void {
+    const nextStep = (this.activeJourneyStep() + 1) % this.journeySteps.length;
+    this.activeJourneyStep.set(nextStep);
+    const msg = this.scooterMessages[this.scooterClickCount % this.scooterMessages.length];
+    this.scooterClickCount++;
+    this.scooterBubble.set(msg);
+    this.triggerRev();
+  }
+
+  private triggerRev(): void {
+    this.scooterRevving.set(false);
+    clearTimeout(this.revTimer);
+    requestAnimationFrame(() => {
+      this.scooterRevving.set(true);
+      this.revTimer = setTimeout(() => this.scooterRevving.set(false), 620);
+    });
+  }
+
   @HostListener('window:pointermove', ['$event'])
   onPointerMove(event: PointerEvent): void {
     if (event.pointerType !== 'mouse') return;

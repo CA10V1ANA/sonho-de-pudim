@@ -129,17 +129,66 @@
   </section>
 
   <section class="journey">
-    <div class="journey__intro" appReveal><span class="eyebrow">Do sonho até você</span><h2>Encomendar é<br><em>simples assim.</em></h2><p>Peça para entrega imediata no iFood ou combine sua encomenda pelo WhatsApp.</p></div>
+    <div class="journey__intro" appReveal>
+      <span class="eyebrow">Do sonho até você</span>
+      <h2>Encomendar é<br><em>simples assim.</em></h2>
+      <p>Peça para entrega imediata no iFood ou combine sua encomenda pelo WhatsApp.</p>
+
+      <div class="scooter-stage" [style.--step]="activeJourneyStep()">
+        @if (scooterBubble(); as bubble) {
+          <div class="scooter-bubble" role="status">
+            <span>{{ bubble }}</span>
+            <button type="button" (click)="contact.open()">Pedir agora →</button>
+          </div>
+        }
+
+        <div class="scooter-track">
+          <button
+            class="scooter-btn"
+            [class.is-revving]="scooterRevving()"
+            type="button"
+            aria-label="Acelerar motinha do pudim"
+            (click)="interactScooter()">
+            <span class="scooter-puff puff--1" aria-hidden="true">♡</span>
+            <span class="scooter-puff puff--2" aria-hidden="true">✦</span>
+            <img src="assets/mascote-delivery.png" alt="Mascote de pudim entregador em uma motinha">
+            <span class="scooter-ground-shadow" aria-hidden="true"></span>
+          </button>
+
+          <div class="scooter-stops" aria-hidden="true">
+            @for (item of journeySteps; track item.title; let i = $index) {
+              <span class="scooter-stop" [class.is-active]="i <= activeJourneyStep()"></span>
+            }
+          </div>
+        </div>
+
+        <small class="scooter-hint">
+          {{ scooterBubble() ? 'Clique de novo na motinha ou nos passos →' : 'Toque na motinha para acelerar ✦' }}
+        </small>
+      </div>
+    </div>
+
     <div class="journey__steps">
-      <article appReveal><div><h3>Escolha o canal</h3><p>Peça direto pelo iFood ou chame a gente no WhatsApp.</p></div></article>
-      <article appReveal><div><h3>Escolha o tamanho</h3><p>Pudim individual (120 ml) ou tamanho família (500 ml • até 8 fatias).</p></div></article>
-      <article appReveal><div><h3>Receba fresquinho</h3><p>Entrega rápida em Horizonte - CE ou retirada combinada.</p></div></article>
+      @for (step of journeySteps; track step.title; let i = $index) {
+        <article
+          appReveal
+          [class.is-active]="activeJourneyStep() === i"
+          tabindex="0"
+          (mouseenter)="selectJourneyStep(i)"
+          (focus)="selectJourneyStep(i)"
+          (click)="selectJourneyStep(i)">
+          <span class="journey__step-num">0{{ i + 1 }}</span>
+          <div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.text }}</p>
+          </div>
+        </article>
+      }
     </div>
   </section>
 
   <section class="cta" appReveal>
     <div class="cta__drip drip-a"></div><div class="cta__drip drip-b"></div><div class="cta__drip drip-c"></div>
-    <img src="assets/mascote-figurinha.png" alt="" class="cta__mascot">
     <span class="eyebrow">Seu momento pede um doce</span>
     <h2>Vamos transformar<br>vontade em <em>sonho?</em></h2>
     <p>Fale com a gente para conferir o cardápio e reservar sua encomenda.</p>

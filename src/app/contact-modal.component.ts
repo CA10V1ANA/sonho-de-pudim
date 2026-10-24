@@ -95,10 +95,17 @@ import { ModalStep } from './models';
             }
             @case ('evento') {
               <div class="modal__top">
-                <button class="back" type="button" (click)="step.set('menu')">Voltar</button>
-                <img class="modal__icon" src="favicon.png" alt="">
+                <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
               </div>
-              <h2 id="modal-title">Vamos adoçar o seu <em>evento.</em></h2>
+              <div class="modal__hero">
+                <div>
+                  <span class="eyebrow">Orçamento para festas</span>
+                  <h2 id="modal-title">Vamos adoçar o seu <em>evento.</em></h2>
+                </div>
+                <div class="modal__mascot-badge">
+                  <img src="assets/mascote-eventos.png" alt="Mascote de pudim comemorando evento">
+                </div>
+              </div>
               <form (submit)="submit($event, 'evento')">
                 <label>Seu nome<input name="nome" [value]="evento().nome" (input)="setevento('nome', $event)" required autocomplete="name"></label>
                 <label>Tipo de evento
@@ -117,10 +124,17 @@ import { ModalStep } from './models';
             }
             @case ('revenda') {
               <div class="modal__top">
-                <button class="back" type="button" (click)="step.set('menu')">Voltar</button>
-                <img class="modal__icon" src="favicon.png" alt="">
+                <button class="back" type="button" (click)="step.set('menu')">← Voltar</button>
               </div>
-              <h2 id="modal-title">Leve o Sonho de Pudim ao seu <em>negócio.</em></h2>
+              <div class="modal__hero">
+                <div>
+                  <span class="eyebrow">Parceria comercial</span>
+                  <h2 id="modal-title">Leve o Sonho de Pudim ao seu <em>negócio.</em></h2>
+                </div>
+                <div class="modal__mascot-badge">
+                  <img src="assets/mascote-revenda.png" alt="Mascote de pudim parceiro de revenda">
+                </div>
+              </div>
               <form (submit)="submit($event, 'revenda')">
                 <label>Seu nome<input name="nome" [value]="revenda().nome" (input)="setrevenda('nome', $event)" required autocomplete="name"></label>
                 <label>Nome do negócio<input name="negocio" [value]="revenda().negocio" (input)="setrevenda('negocio', $event)" required></label>
