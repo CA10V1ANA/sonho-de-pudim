@@ -46,7 +46,6 @@
         <article class="size-card" appReveal>
           <div class="size-card__media">
             <span class="size-card__badge">{{ size.serves }}</span>
-            <span class="size-card__tag">✦ Zero Lactose</span>
             <img [src]="size.image" [alt]="size.alt">
           </div>
           <div class="size-card__body">
@@ -54,9 +53,12 @@
             <h3>{{ size.title }}</h3>
             <p>{{ size.text }}</p>
             <div class="size-card__options" aria-label="Versões disponíveis">
-              @for (option of size.options; track option; let isZero = $last) {
-                <span class="size-card__option" [class.size-card__option--zero]="isZero">
-                  <i>{{ isZero ? '🌿' : '🍮' }}</i> {{ option }}
+              @for (option of size.options; track option.label) {
+                <span
+                  class="size-card__option"
+                  [class.size-card__option--zero]="option.variant === 'zero'"
+                  [class.size-card__option--coffee]="option.variant === 'coffee'">
+                  <i aria-hidden="true">{{ option.icon }}</i> {{ option.label }}
                 </span>
               }
             </div>

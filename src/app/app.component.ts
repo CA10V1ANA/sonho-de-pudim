@@ -4,7 +4,7 @@ import { RevealDirective } from './reveal.directive';
 import { ContactModalComponent } from './contact-modal.component';
 import { ContactService } from './contact.service';
 import { IFOOD_URL } from './contact.config';
-import { Highlight, Occasion, ProductSize, Review, StoreHour } from './models';
+import { Highlight, Occasion, ProductOption, ProductSize, Review, StoreHour } from './models';
 
 @Component({
   selector: 'app-root',
@@ -21,13 +21,19 @@ export class AppComponent {
   readonly pointerX = signal(0);
   readonly pointerY = signal(0);
 
+  private readonly productOptions: readonly ProductOption[] = [
+    { label: 'Tradicional', icon: '🍮' },
+    { label: 'Zero Lactose', icon: '✦', variant: 'zero' },
+    { label: 'Café', icon: '☕', variant: 'coffee' }
+  ];
+
   readonly sizes: readonly ProductSize[] = [
     {
       badge: 'Porção individual • 120 ml',
       title: 'Pudim Individual',
       serves: 'Para 1 pessoa • 120 ml',
       volume: '120 ml',
-      options: ['Tradicional', 'Zero Lactose'],
+      options: this.productOptions,
       text: 'Na medida certa para matar a vontade de um doce artesanal a qualquer hora, com textura super cremosa e calda generosa.',
       image: 'assets/pudim-individual.png',
       alt: 'Pudim individual de 120 ml servido com calda de caramelo'
@@ -37,7 +43,7 @@ export class AppComponent {
       title: 'Pudim Tamanho Família',
       serves: 'Serve até 8 fatias • 500 ml',
       volume: '500 ml',
-      options: ['Tradicional', 'Zero Lactose'],
+      options: this.productOptions,
       text: 'Perfeito para dividir com quem você ama no almoço em família, encontros especiais e comemorações.',
       image: 'assets/pudim-familia.png',
       alt: 'Pudim tamanho família de 500 ml para até 8 fatias na embalagem Sonho de Pudim'

@@ -9,12 +9,18 @@ export interface Occasion {
   readonly featured?: boolean;
 }
 
+export interface ProductOption {
+  readonly label: string;
+  readonly icon: string;
+  readonly variant?: 'zero' | 'coffee';
+}
+
 export interface ProductSize {
   readonly badge: string;
   readonly title: string;
   readonly serves: string;
   readonly volume: string;
-  readonly options: readonly string[];
+  readonly options: readonly ProductOption[];
   readonly text: string;
   readonly image: string;
   readonly alt: string;
