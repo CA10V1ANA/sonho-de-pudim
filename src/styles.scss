@@ -16,9 +16,10 @@ body { margin: 0; background: var(--cream); color: var(--ink); font-family: 'DM 
 button, a { font: inherit; }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
+section[id] { scroll-margin-top: 88px; }
 
 .eyebrow { color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: .23em; text-transform: uppercase; }
-.button { align-items: center; background: var(--caramel); border-radius: 999px; box-shadow: 0 14px 35px rgba(120, 54, 10, .2); color: #fff7e4; display: inline-flex; font-weight: 700; gap: 20px; justify-content: center; padding: 17px 25px; transition: transform .3s ease, background .3s ease, box-shadow .3s ease; }
+.button { align-items: center; background: var(--caramel); border: 0; border-radius: 999px; box-shadow: 0 14px 35px rgba(120, 54, 10, .2); color: #fff7e4; cursor: pointer; display: inline-flex; font-weight: 700; gap: 20px; justify-content: center; padding: 17px 25px; transition: transform .3s ease, background .3s ease, box-shadow .3s ease; }
 .button:hover { background: var(--caramel-deep); box-shadow: 0 18px 40px rgba(120, 54, 10, .28); transform: translateY(-3px); }
 .button--small { padding: 12px 20px; }
 .text-link { border-bottom: 1px solid rgba(159, 77, 23, .45); display: inline-flex; font-weight: 700; gap: 18px; padding-bottom: 6px; }
